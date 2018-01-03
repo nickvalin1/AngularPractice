@@ -11,13 +11,11 @@
     </head>
     <body ng-app="registrationForm" ng-controller="formCtrl">
         <h3>Complete your registration below:</h3>
-        <form name="registration">
+        <form name="registration" action="confirm.html">
             <label>Email: <input type="email" name="email" ng-model="email" required></label>
             <label>Phone: <input type="tel" name="phone" ng-model="phone" my-phone-validation></label>
             <label>Password: <input type="password" name="password" ng-model="password" required></label>
-            <input type="submit">
-            <p>Email State: {{registration.email.$valid}}</p>
-            <p>Phone State: {{registration.phone.$valid}}</p>
+            <input type="submit" value="Register" ng-disabled="registration.email.$invalid || registration.phone.$invalid">
         </form>
         <script>
             var app = angular.module("registrationForm", []);

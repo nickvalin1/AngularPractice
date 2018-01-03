@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Registration Page</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    </head>
+    <body>
+        <h1 ng-app="confirm" ng-controller="confirmCtrl">Thank you for registering {{email}}</h1>
+    </body>
+    <script>
+        var app = angular.module("confirm", []);
+        app.config(["$locationProvider", function($locationProvider) {
+            $locationProvider.html5Mode({
+                enabled: true,
+                requireBase: false
+            });
+        }]);
+        app.controller("confirmCtrl", function($scope, $location) {
+            $scope.email = $location.search().email;
+        });
+    </script>
+</html>
