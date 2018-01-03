@@ -1,0 +1,44 @@
+<hmtl>
+    <head>
+        <title>Registration Page</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <style>
+            label {
+                padding-bottom: 20px;
+                display: block;
+            }
+        </style>
+    </head>
+    <body ng-app="registrationForm" ng-controller="formCtrl">
+        <h3>Complete your registration below:</h3>
+        <form name="registration">
+            <label>Email: <input type="email" name="email" ng-model="email" required></label>
+            <label>Phone: <input type="tel" name="phone" ng-model="phone" my-phone-validation></label>
+            <label>Password: <input type="password" name="password" ng-model="password" required></label>
+            <input type="submit">
+            <p>Email State: {{registration.email.$valid}}</p>
+            <p>Phone State: {{registration.phone.$valid}}</p>
+        </form>
+        <script>
+            var app = angular.module("registrationForm", []);
+            app.controller("formCtrl", function($scope) {});
+            app.directive("myPhoneValidation", function() {
+                return {
+                    require: "ngModel",
+                    link: function(scope, element, attr, formCtrl) {
+                        function phoneValidation(value) {
+                            // A valid phone number is null or at least 10 digits, ignoring characters other than digits and letters
+                            if (value === "" || value.replace(/[^\d\w]/g, "").match(/\d{10,}/)) {
+                                formCtrl.$setValidity("phoneValidation", true);
+                            } else {
+                                formCtrl.$setValidity("phoneValidation", false);
+                            }
+                            return value;
+                        }
+                        formCtrl.$parsers.push(phoneValidation);
+                    }
+                };
+            });
+        </script>
+    </body>
+</hmtl>
